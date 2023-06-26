@@ -20,7 +20,7 @@ function photographerTemplate(data) {
         const text = document.createElement("p");
         text.textContent = tagline;
         const textprice = document.createElement("p");
-        textprice.textContent = price;
+        textprice.textContent = price+"€/jour";
         blockbottom.appendChild(location);
         blockbottom.appendChild(text);
         blockbottom.appendChild(textprice);
@@ -30,24 +30,3 @@ function photographerTemplate(data) {
     }
     return { name, picture, getUserCardDOM }
 }
-
-/*let photographers = [
-            {
-                "name": "Ma data test",
-                "id": 1,
-                "city": "Paris",
-                "country": "France",
-                "tagline": "Ceci est ma data test",
-                "price": 400,
-                "portrait": "account.png"
-            },
-            {
-                "name": "Autre data test",
-                "id": 2,
-                "city": "Londres",
-                "country": "UK",
-                "tagline": "Ceci est ma data test 2",
-                "price": 500,
-                "portrait": "account.png"
-            },
-        ]*/

@@ -48,3 +48,32 @@ h1 {
     height: 200px;
     width: 200px;
 }
+.photograph-header{
+    display: flex;
+    justify-content: space-around;
+}
+.photograph-header *{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#photographe-information{
+    width: 20%;
+}
+#photographe-contact{
+    width: 20%;
+}
+#photographe-pdp{
+    width: 20%;
+}
+.photograph-header #photographe-information div{
+    flex-direction: column;
+}
+#photographe-information div h1{
+    margin-right:0;
+}
+#photographe-pdp img{
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+}
