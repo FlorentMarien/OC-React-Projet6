@@ -25,9 +25,10 @@ async function getMediaPhotographers(id){
     else return "id not found";
     //return "id not found";
 }
-async function displayDataMedia(id) {
+async function displayDataMedia(id, filter) {
     const photographersSection = document.getElementById("section_gallery");
     let arrayMedia = await getMediaPhotographers(id);
+    filterDataMedia('Popularité',arrayMedia);
     console.log(arrayMedia);
     arrayMedia.forEach((element)=>{
         let block = document.createElement("div");
@@ -49,6 +50,35 @@ async function displayDataMedia(id) {
         block.appendChild(block_bottom);
         photographersSection.appendChild(block);
     });
+}
+function filterDataMedia(filter, media){
+    //Filter = Popularité / Date / Titre
+    //Media = Array[array[img,title,like,date...],array[vid,title...]]
+    let x=0;
+    let nbrverif=0
+    switch (filter){
+        case 'Popularité':
+            while(x<media.length){
+                nbrverif++;
+                if(media[x+1]==undefined){
+                    x+=2;
+                }else{
+                    if(media[x].likes > media[x+1].likes){
+                        x++;
+                    }else{
+                        let tamponreverse = media[x+1].likes;
+                        media[x+1].likes = media[x].likes;
+                        media[x].likes = tamponreverse;
+                        x=0;
+                    }
+                }
+            }
+            return media;
+        case 'Date':
+            break
+        case 'Titre':
+            break;
+    }
 }
 async function init(){
     const url = new URL(window.location);
