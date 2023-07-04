@@ -25,12 +25,14 @@ async function getMediaPhotographers(id){
     else return "id not found";
     //return "id not found";
 }
-async function displayDataMedia(id, filter) {
+async function displayDataMedia() {
     const photographersSection = document.getElementById("section_gallery");
     let arrayMedia = await getMediaPhotographers(id);
-    filterDataMedia('Popularité',arrayMedia);
+    filterDataMedia(document.getElementById("filtergallery").value,arrayMedia);
     console.log(arrayMedia);
+    document.getElementById("section_gallery").textContent="";
     arrayMedia.forEach((element)=>{
+        
         let block = document.createElement("div");
         let block_bottom = document.createElement("div");
         block.className+="gallery_media";
@@ -63,31 +65,49 @@ function filterDataMedia(filter, media){
                 if(media[x+1]==undefined){
                     x+=2;
                 }else{
-                    if(media[x].likes > media[x+1].likes){
+                    if(media[x].likes >= media[x+1].likes){
                         x++;
                     }else{
-                        let tamponreverse = media[x+1].likes;
-                        media[x+1].likes = media[x].likes;
-                        media[x].likes = tamponreverse;
+                        let tamponreverse = media[x+1];
+                        media[x+1] = media[x];
+                        media[x] = tamponreverse;
                         x=0;
                     }
                 }
             }
             return media;
         case 'Date':
-            break
+            while(x<media.length){
+                nbrverif++;
+                if(media[x+1]==undefined){
+                    x+=2;
+                }else{
+                    if(new Date(media[x].date) >= new Date(media[x+1].date)){
+                        x++;
+                    }else{
+                        let tamponreverse = media[x+1];
+                        media[x+1] = media[x];
+                        media[x] = tamponreverse;
+                        x=0;
+                    }
+                }
+            }
+            return media;
         case 'Titre':
+            break;
+        default:
             break;
     }
 }
 async function init(){
     const url = new URL(window.location);
     const searchParam = new URLSearchParams(url.search);
-    if(searchParam.get("id") == null || searchParam.get("id")== undefined || searchParam.get("id") == ""){
+    id = searchParam.get("id"); 
+    if(id == null || id == undefined || id == ""){
         //Securité
         window.location = "index.html";
     }else{
-        const photographer = await getPhotographers(searchParam.get("id"));
+        const photographer = await getPhotographers(id);
         if(photographer == "id not found") window.location = "index.html";
         else{
             const photographeInformation=document.getElementById("photographe-information");
@@ -107,10 +127,11 @@ async function init(){
             let photographeImage=document.createElement("img");
             photographeImage.setAttribute("src", "/assets/photographers/"+photographer.portrait);
             photographePdp.appendChild(photographeImage);
-
-           await displayDataMedia(searchParam.get("id"));
+            document.getElementById("filtergallery").addEventListener("change",displayDataMedia);
+           await displayDataMedia();
 
         }
     }
 }
+let id = null;
 init();
