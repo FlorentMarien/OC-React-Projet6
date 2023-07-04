@@ -74,3 +74,38 @@ form input {
     border: none;
     border-radius: 5px;
 }
+#section_gallery{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+}
+.gallery_media{
+    width: 20%;
+    margin: 2.5%;
+    text-align: center;
+}
+.gallery_media > img{
+    width: 200px;
+    height: 200px;
+}
+.gallery_media div{
+    display: flex;
+}
+.gallery_media div p{
+    width: 70%;
+}
+.gallery_media div p + p{
+    width: calc(30% - 15px);
+    text-align: right;
+}
+.gallery_media div img{
+    display: block;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-self: center; 
+}
+.logoheart{
+    
+}
