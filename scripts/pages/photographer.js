@@ -29,7 +29,6 @@ async function displayDataMedia() {
     const photographersSection = document.getElementById("section_gallery");
     let arrayMedia = await getMediaPhotographers(id);
     filterDataMedia(document.getElementById("filtergallery").value,arrayMedia);
-    console.log(arrayMedia);
     document.getElementById("section_gallery").textContent="";
     arrayMedia.forEach((element)=>{
         
@@ -77,12 +76,65 @@ function filterDataMedia(filter, media){
             }
             return media;
         case 'Date':
+            /* Verif ordre media base
+            media.forEach((element)=>{
+                console.log(element.date);
+            })*/
             while(x<media.length){
                 nbrverif++;
                 if(media[x+1]==undefined){
                     x+=2;
                 }else{
-                    if(new Date(media[x].date) >= new Date(media[x+1].date)){
+                    if(isNaN(Date.parse(media[x].date))){
+                        let tamponreverse = media[x];
+                        media[x] = media[x+1];
+                        media[x+1] = tamponreverse;
+                        x=0;
+                    }else if(isNaN(Date.parse(media[x+1].date))){
+                        x++;
+                    }else{
+                        if(Date.parse(media[x].date) >= Date.parse(media[x+1].date)){
+                            x++;
+                        }else{            
+                            let tamponreverse = media[x];
+                            media[x] = media[x+1];
+                            media[x+1] = tamponreverse;
+                            x=0;
+                        }
+                    }
+                }
+            }
+            /* Verif ordre media filtrer
+            media.forEach((element)=>{
+                console.log(" / "+element.date);
+            }) */
+            return media;
+            break;
+        case 'Titre':
+            while(x<media.length){
+                nbrverif++;
+                if(media[x+1] == undefined){
+                    x+=2;
+                }else{
+                    let z=0;
+                    if(media[x].title.charCodeAt(z)==media[x+1].title.charCodeAt(z)){
+                        while(media[x].title.charCodeAt(z) == media[x].title.charCodeAt(z)){ 
+                            if(media[x].title.charCodeAt(z) < media[x+1].title.charCodeAt(z)){
+                                x++;
+                                break;
+                            }
+                            if((media[x].title.charCodeAt(z) > media[x+1].title.charCodeAt(z)) || media[x+1].title.charCodeAt(z) == NaN ){
+                                let tamponreverse = media[x+1];
+                                media[x+1] = media[x];
+                                media[x] = tamponreverse;
+                                x=0;
+                                break;
+                            }
+                            if(media[x].title.charCodeAt(z) == media[x+1].title.charCodeAt(z)){
+                                z++;
+                            }
+                        }
+                    }else if(String(media[x].title).charCodeAt(z) < String(media[x+1].title).charCodeAt(z)){
                         x++;
                     }else{
                         let tamponreverse = media[x+1];
@@ -90,11 +142,10 @@ function filterDataMedia(filter, media){
                         media[x] = tamponreverse;
                         x=0;
                     }
+                    
                 }
-            }
+            }            
             return media;
-        case 'Titre':
-            break;
         default:
             break;
     }
