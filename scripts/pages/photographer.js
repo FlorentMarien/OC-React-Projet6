@@ -29,9 +29,9 @@ async function displayDataMedia() {
     const photographersSection = document.getElementById("section_gallery");
     let arrayMedia = await getMediaPhotographers(id);
     filterDataMedia(document.getElementById("filtergallery").value,arrayMedia);
+    // Gallery
     document.getElementById("section_gallery").textContent="";
     arrayMedia.forEach((element)=>{
-        
         let block = document.createElement("div");
         let block_bottom = document.createElement("div");
         block.className+="gallery_media";
@@ -51,6 +51,26 @@ async function displayDataMedia() {
         block.appendChild(block_bottom);
         photographersSection.appendChild(block);
     });
+}
+async function displayDataInformation(){
+    // Block postion absolute prix
+    let photographeInfo = await getPhotographers(id);
+    let block = document.createElement("div");
+    let block_left = document.createElement("div");
+    block.className += "container_price-absolute";
+    let info_likes = 0;
+    let block_nbrlikes = document.createElement("p");
+    block_nbrlikes.textContent=info_likes;
+    let block_hearticone = document.createElement("img");
+    block_hearticone.className+="container_price-absolute_logoheart";
+    block_hearticone.src = "/../assets/icons/heart.svg";
+    block_left.appendChild(block_nbrlikes);
+    block_left.appendChild(block_hearticone);
+    let block_prices = document.createElement("p");
+    block_prices.textContent = photographeInfo.price+"e/jour";
+    block.appendChild(block_left);
+    block.appendChild(block_prices);
+    document.getElementById("main").appendChild(block);
 }
 function filterDataMedia(filter, media){
     //Filter = Popularité / Date / Titre
@@ -161,6 +181,7 @@ async function init(){
         const photographer = await getPhotographers(id);
         if(photographer == "id not found") window.location = "index.html";
         else{
+            // Block information photographes
             const photographeInformation=document.getElementById("photographe-information");
             const photographePdp=document.getElementById("photographe-pdp");
             const containerinformation=document.createElement("div");
@@ -174,12 +195,16 @@ async function init(){
             containerinformation.appendChild(cityPhotographer);
             containerinformation.appendChild(informationPhotographer);
             photographeInformation.appendChild(containerinformation);
-
             let photographeImage=document.createElement("img");
             photographeImage.setAttribute("src", "/assets/photographers/"+photographer.portrait);
             photographePdp.appendChild(photographeImage);
+            
+            // Affichage gallery
             document.getElementById("filtergallery").addEventListener("change",displayDataMedia);
-           await displayDataMedia();
+            await displayDataMedia();
+
+            //Affichage information
+            await displayDataInformation();
 
         }
     }

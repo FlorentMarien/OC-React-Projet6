@@ -95,17 +95,35 @@ form input {
     width: 70%;
 }
 .gallery_media div p + p{
-    width: calc(30% - 15px);
+    width: calc(30% - 20px);
     text-align: right;
 }
 .gallery_media div img{
     display: block;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-self: center; 
 }
 .logoheart{
     
+}
+.container_price-absolute{
+    position: fixed;
+    right: 50px;
+    bottom: 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 200px;
+    background-color: darkorange;
+}
+.container_price-absolute > div{
+    display: flex;
+    align-items: center;
+}
+.container_price-absolute_logoheart{
+    width: 20px;
+    height: 20px;
 }
