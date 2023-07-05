@@ -35,9 +35,20 @@ async function displayDataMedia() {
         let block = document.createElement("div");
         let block_bottom = document.createElement("div");
         block.className+="gallery_media";
-        let media = document.createElement("img");
-        media.src = "/../assets/photograhersPhotos/"+element.photographerId+"/"+element.image;
-        block.appendChild(media);
+        if(element.image == undefined){
+            let mediacontrol = document.createElement("video");
+            mediacontrol.controls = " ";
+            let media = document.createElement("source");
+            media.src = "/../assets/photograhersPhotos/"+element.photographerId+"/"+element.video;
+            media.type = "video/mp4";
+            mediacontrol.appendChild(media);
+            block.appendChild(mediacontrol);
+        }else{
+            let media = document.createElement("img");
+            media.src = "/../assets/photograhersPhotos/"+element.photographerId+"/"+element.image;
+            block.appendChild(media);
+        }
+        
         let title = document.createElement("p");
         title.textContent = element.title;
         block_bottom.appendChild(title);
@@ -195,6 +206,7 @@ async function init(){
             containerinformation.appendChild(cityPhotographer);
             containerinformation.appendChild(informationPhotographer);
             photographeInformation.appendChild(containerinformation);
+
             let photographeImage=document.createElement("img");
             photographeImage.setAttribute("src", "/assets/photographers/"+photographer.portrait);
             photographePdp.appendChild(photographeImage);
