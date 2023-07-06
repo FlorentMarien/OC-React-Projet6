@@ -188,23 +188,80 @@ function openLightboxModal(arrayMedia,id){
     //document.getElementById("btn-closeLightboxModal").addEventListener("click",closeLightboxModal);
     arrayMedia.forEach((element)=>{
         if(element.id == id){
+            let container_back = document.createElement("div");
+            let container_middle = document.createElement("div");
+            let container_forward = document.createElement("div");
+            let back=document.createElement("img");
+            let forward=document.createElement("img");
+            back.addEventListener("click",function(){lightboxBack(arrayMedia);});
+            forward.addEventListener("click",function(){lightboxForward(arrayMedia);});
+            back.src="/../assets/icons/back.svg";
+            forward.src="/../assets/icons/forward.svg";
+            container_back.className = "lightbox-back";
+            container_middle.id = "lightbox-middle";
+            container_forward.className = "lightbox-forward";
+            container_back.appendChild(back);
+            container_forward.appendChild(forward);
+            document.getElementById("lightbox-modal-container").appendChild(container_back);
+            let media;
             if(element.image == undefined){
                 videocontrol = document.createElement("video");
                 videocontrol.className = "videolightbox";
                 videocontrol.controls = " ";
                 video = document.createElement("source");
+                video.id = "lightbox-video";
                 video.src = "/../assets/photograhersPhotos/"+element.photographerId+"/"+element.video;
                 video.type = "video/mp4";
+                video.name = element.id;
                 videocontrol.appendChild(video);
-                document.getElementById("lightbox-modal-container").appendChild(videocontrol);
+                media=videocontrol;
             }else{
                 img = document.createElement("img");
                 img.className = "imgLightbox";
+                img.id = "lightbox-image";
+                img.name = element.id;
                 img.src = "/../assets/photograhersPhotos/"+element.photographerId+"/"+element.image;  
-                document.getElementById("lightbox-modal-container").appendChild(img);
+                media=img;
             }
+            container_middle.appendChild(media);
+            document.getElementById("lightbox-modal-container").appendChild(container_middle);
+            document.getElementById("lightbox-modal-container").appendChild(container_forward);
         }
     });
+}
+function lightboxBack(arrayMedia){
+    let pointer = 0; 
+    let photoId = document.getElementById("lightbox-image") != undefined ? document.getElementById("lightbox-image").name : document.getElementById("lightbox-video").name;
+    arrayMedia.forEach((element)=>{
+        if(element.id == photoId){
+            document.getElementById("lightbox-middle").textContent = "";
+            if(pointer == 0) pointer=arrayMedia.length;
+            if(arrayMedia[pointer-1].image != undefined || (pointer == 0 && arrayMedia[arrayMedia.length].image != undefined)){
+                image = document.createElement("img");
+                image.src = "/../assets/photograhersPhotos/"+id+"/"+arrayMedia[pointer-1].image;
+                image.className = "imgLightbox";
+                image.id = "lightbox-image";
+                image.name = arrayMedia[pointer-1].id;
+                document.getElementById("lightbox-middle").appendChild(image);
+            }else{
+                videocontrol = document.createElement("video");
+                videocontrol.className = "videolightbox";
+                videocontrol.controls = " ";
+                video = document.createElement("source");
+                video.id = "lightbox-video";
+                if(pointer == 0) video.src = "/../assets/photograhersPhotos/"+id+"/"+arrayMedia[arrayMedia[arrayMedia.length]].video;
+                else video.src = "/../assets/photograhersPhotos/"+id+"/"+arrayMedia[pointer-1].video; 
+                video.type = "video/mp4";
+                video.name = arrayMedia[pointer-1].id;
+                videocontrol.appendChild(video);
+                document.getElementById("lightbox-middle").appendChild(videocontrol);
+            }
+        }
+        pointer++;
+    });
+}
+function lightboxForward(arrayMedia){
+
 }
 function closeLightboxModal(){
     document.getElementById("lightbox-modal").style.display = "none";
