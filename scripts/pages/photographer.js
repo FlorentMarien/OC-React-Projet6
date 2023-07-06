@@ -33,16 +33,14 @@ async function displayDataMedia() {
     document.getElementById("section_gallery").textContent="";
     arrayMedia.forEach((element)=>{
         let block = document.createElement("div");
+        block.addEventListener("click",function(ev){ openLightboxModal(arrayMedia, element.id)});
         let block_bottom = document.createElement("div");
         block.className+="gallery_media";
         if(element.image == undefined){
-            let mediacontrol = document.createElement("video");
-            mediacontrol.controls = " ";
-            let media = document.createElement("source");
+            let media = document.createElement("video");
             media.src = "/../assets/photograhersPhotos/"+element.photographerId+"/"+element.video;
             media.type = "video/mp4";
-            mediacontrol.appendChild(media);
-            block.appendChild(mediacontrol);
+            block.appendChild(media);
         }else{
             let media = document.createElement("img");
             media.src = "/../assets/photograhersPhotos/"+element.photographerId+"/"+element.image;
@@ -180,6 +178,35 @@ function filterDataMedia(filter, media){
         default:
             break;
     }
+}
+function openLightboxModal(arrayMedia,id){
+    console.log(arrayMedia);
+    console.log(id);
+    document.getElementById("lightbox-modal").style.display = "block";
+    //document.getElementById("btn-closeLightboxModal").addEventListener("click",closeLightboxModal);
+    arrayMedia.forEach((element)=>{
+        if(element.id == id){
+            if(element.image == undefined){
+                videocontrol = document.createElement("video");
+                videocontrol.className = "videolightbox";
+                videocontrol.controls = " ";
+                video = document.createElement("source");
+                video.src = "/../assets/photograhersPhotos/"+element.photographerId+"/"+element.video;
+                video.type = "video/mp4";
+                videocontrol.appendChild(video);
+                document.getElementById("lightbox-modal-container").appendChild(videocontrol);
+            }else{
+                img = document.createElement("img");
+                img.className = "imgLightbox";
+                img.src = "/../assets/photograhersPhotos/"+element.photographerId+"/"+element.image;  
+                document.getElementById("lightbox-modal-container").appendChild(img);
+            }
+        }
+    });
+}
+function closeLightboxModal(){
+    document.getElementById("lightbox-modal").style.display = "none";
+    document.getElementById("lightbox-modal-container").textContent = "";
 }
 async function init(){
     const url = new URL(window.location);

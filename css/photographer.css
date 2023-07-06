@@ -131,3 +131,33 @@ form input {
     width: 20px;
     height: 20px;
 }
+#lightbox-modal{
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.8);
+}
+.lightbox-modal{
+    width: 100%;
+    height: 100%;
+}
+#btn-closeLightboxModal{
+    background-color: red;
+}
+#lightbox-modal-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.imgLightbox{
+    width: 600px;
+    height: 600px;
+}
+.videolightbox{
+    width: 600px;
+    height: 600px;
+}
