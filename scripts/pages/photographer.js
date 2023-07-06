@@ -31,22 +31,23 @@ async function displayDataMedia() {
     filterDataMedia(document.getElementById("filtergallery").value,arrayMedia);
     // Gallery
     document.getElementById("section_gallery").textContent="";
+    let totallike = 0;
     arrayMedia.forEach((element)=>{
+        totallike+=element.likes;
         let block = document.createElement("div");
         block.addEventListener("click",function(ev){ openLightboxModal(arrayMedia, element.id)});
         let block_bottom = document.createElement("div");
         block.className+="gallery_media";
-        if(element.image == undefined){
-            let media = document.createElement("video");
+        let media;
+        if(element.video != undefined){
+            media = document.createElement("video");
             media.src = "/../assets/photograhersPhotos/"+element.photographerId+"/"+element.video;
-            media.type = "video/mp4";
-            block.appendChild(media);
+            media.type = "video/mp4";       
         }else{
-            let media = document.createElement("img");
+            media = document.createElement("img");
             media.src = "/../assets/photograhersPhotos/"+element.photographerId+"/"+element.image;
-            block.appendChild(media);
         }
-        
+        block.appendChild(media);
         let title = document.createElement("p");
         title.textContent = element.title;
         block_bottom.appendChild(title);
@@ -60,16 +61,17 @@ async function displayDataMedia() {
         block.appendChild(block_bottom);
         photographersSection.appendChild(block);
     });
+    //Affichage information
+    await displayDataInformation(totallike);
 }
-async function displayDataInformation(){
+async function displayDataInformation(totallike){
     // Block postion absolute prix
     let photographeInfo = await getPhotographers(id);
     let block = document.createElement("div");
     let block_left = document.createElement("div");
     block.className += "container_price-absolute";
-    let info_likes = 0;
     let block_nbrlikes = document.createElement("p");
-    block_nbrlikes.textContent=info_likes;
+    block_nbrlikes.textContent=totallike;
     let block_hearticone = document.createElement("img");
     block_hearticone.className+="container_price-absolute_logoheart";
     block_hearticone.src = "/../assets/icons/heart.svg";
@@ -241,9 +243,6 @@ async function init(){
             // Affichage gallery
             document.getElementById("filtergallery").addEventListener("change",displayDataMedia);
             await displayDataMedia();
-
-            //Affichage information
-            await displayDataInformation();
 
         }
     }
