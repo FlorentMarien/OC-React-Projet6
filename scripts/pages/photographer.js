@@ -186,19 +186,29 @@ function openLightboxModal(arrayMedia,id){
     //document.getElementById("btn-closeLightboxModal").addEventListener("click",closeLightboxModal);
     arrayMedia.forEach((element)=>{
         if(element.id == id){
+            /*
+            <header>
+                <img src="assets/icons/close.svg" id="btn-closeLightboxModal" onclick="closeLightboxModal()"/>
+            </header>
+            */
             let container_back = document.createElement("div");
             let container_middle = document.createElement("div");
             let container_forward = document.createElement("div");
             let back=document.createElement("img");
             let forward=document.createElement("img");
+            let btnquit=document.createElement("img");
             back.addEventListener("click",function(){lightboxBack(arrayMedia);});
             forward.addEventListener("click",function(){lightboxForward(arrayMedia);});
+            btnquit.addEventListener("click",closeLightboxModal);
             back.src="/../assets/icons/back.svg";
             forward.src="/../assets/icons/forward.svg";
+            btnquit.src="assets/icons/close.svg";
+            btnquit.id="btn-closeLightboxModal";
             container_back.className = "lightbox-back";
             container_middle.id = "lightbox-middle";
             container_forward.className = "lightbox-forward";
             container_back.appendChild(back);
+            container_forward.appendChild(btnquit);
             container_forward.appendChild(forward);
             document.getElementById("lightbox-modal-container").appendChild(container_back);
             let media;

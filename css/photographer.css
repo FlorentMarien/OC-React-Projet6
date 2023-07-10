@@ -145,7 +145,8 @@ form input {
     height: 100%;
 }
 #btn-closeLightboxModal{
-    background-color: red;
+    padding: 25px;
+    box-sizing: border-box;
 }
 #lightbox-modal-container{
     display: flex;
@@ -163,9 +164,19 @@ form input {
 }
 .lightbox-back{
     width: 100px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .lightbox-forward{
     width: 100px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+.lightbox-forward img + img{
+    margin-top: 150px;
 }
 .lightbox-back img, .lightbox-forward img{
     width: 100px;
