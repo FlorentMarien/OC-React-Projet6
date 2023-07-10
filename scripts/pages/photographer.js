@@ -318,6 +318,8 @@ async function init(){
         const photographer = await getPhotographers(id);
         if(photographer == "id not found") window.location = "index.html";
         else{
+            // Modif modal form
+            document.getElementById("form-namephotographer").textContent = photographer.name;
             // Block information photographes
             const photographeInformation=document.getElementById("photographe-information");
             const photographePdp=document.getElementById("photographe-pdp");
