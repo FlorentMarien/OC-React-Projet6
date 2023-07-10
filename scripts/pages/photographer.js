@@ -320,6 +320,7 @@ async function init(){
         else{
             // Modif modal form
             document.getElementById("form-namephotographer").textContent = photographer.name;
+            document.getElementsByClassName("contact_button")[1].addEventListener("click",function(e){verifForm(e);});
             // Block information photographes
             const photographeInformation=document.getElementById("photographe-information");
             const photographePdp=document.getElementById("photographe-pdp");

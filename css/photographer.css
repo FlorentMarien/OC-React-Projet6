@@ -78,7 +78,11 @@ form div {
     align-items: self-start;
     margin-bottom: 26px;
 }
-
+.error{
+    color:red;
+    display: none;
+    margin: 0;
+}
 form input {
     width: 100%;
     height: 40px;
