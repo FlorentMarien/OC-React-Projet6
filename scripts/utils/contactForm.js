@@ -6,11 +6,16 @@ function displayModal() {
 function closeModal() {
     const modal = document.getElementById("contact_modal");
     modal.style.display = "none";
+    // Reset form succes
+    if(document.getElementById("modal-container-form-succes").style.display == "block"){
+        document.getElementById("modal-container-form-succes").style.display = "none";
+        document.getElementById("modal-container-form").style.display = "block";
+
+    }
 }
 function verifForm(e){
     e.preventDefault();
-    console.log(document.getElementById("prenom").value);
-    if(document.getElementById("prenom").value.length < 2 && document.getElementById("nom").value.length < 2 && document.getElementById("email").value != "" && document.getElementById("message").value.length < 10){
+    if(document.getElementById("prenom").value.length >= 2 && document.getElementById("nom").value.length >= 2 && document.getElementById("email").value != "" && document.getElementById("message").value.length >= 10){
     document.getElementById("error-prenom").style.display = "none";
     document.getElementById("error-nom").style.display = "none";
     document.getElementById("error-email").style.display = "none";
@@ -21,7 +26,14 @@ function verifForm(e){
         email:document.getElementById("email"),
         message:document.getElementById("message")
     };
-    console.log("ok");
+    document.getElementById("modal-container-form").style.display = "none";
+    document.getElementById("modal-container-form-succes").textContent = "Merci pour votre message "+form.nom.value+" "+form.prenom.value;
+    document.getElementById("modal-container-form-succes").style.display = "block";
+    // Reset formulaire
+    form.nom.value = "";
+    form.prenom.value = "";
+    form.email.value = "";
+    form.message.value = "";
     }else{
         if(document.getElementById("prenom").value.length < 2){
             document.getElementById("error-prenom").style.display = "block";
