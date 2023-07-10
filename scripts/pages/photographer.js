@@ -74,7 +74,7 @@ async function displayDataInformation(totallike){
     block_nbrlikes.textContent=totallike;
     let block_hearticone = document.createElement("img");
     block_hearticone.className+="container_price-absolute_logoheart";
-    block_hearticone.src = "/../assets/icons/heart.svg";
+    block_hearticone.src = "/../assets/icons/heart-black.svg";
     block_left.appendChild(block_nbrlikes);
     block_left.appendChild(block_hearticone);
     let block_prices = document.createElement("p");
@@ -328,6 +328,7 @@ async function init(){
             const name=document.createElement("h1");
             name.textContent=photographer.name;
             const cityPhotographer=document.createElement("p");
+            cityPhotographer.className+="information-photographer-city";
             cityPhotographer.textContent=photographer.city+", "+photographer.country;
             const informationPhotographer=document.createElement("p");
             informationPhotographer.textContent=photographer.tagline;

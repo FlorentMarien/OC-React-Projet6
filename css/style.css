@@ -15,7 +15,7 @@ header {
 }
 
 h1 {
-    color: #901C1C;
+    color: #D3573C;
     margin-right: 100px;
 }
 
@@ -42,11 +42,13 @@ h1 {
 .photographer_section article h2 {
     color: #D3573C;
     font-size: 36px;
+    margin: 10px 0px;
 }
 
 .photographer_section article img {
     height: 200px;
     width: 200px;
+    border-radius: 100px;
 }
 .photograph-header{
     display: flex;
@@ -56,6 +58,9 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+article div p{
+    margin:3px;
 }
 #photographe-information{
     width: 20%;
@@ -70,7 +75,7 @@ h1 {
     flex-direction: column;
 }
 #photographe-information div h1{
-    margin-right:0;
+    margin:0;
 }
 #photographe-pdp img{
     width: 200px;

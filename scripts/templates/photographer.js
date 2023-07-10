@@ -16,11 +16,14 @@ function photographerTemplate(data) {
         blockhigh.appendChild(h2);
 
         const location = document.createElement("p");
+        location.className += "information-photographer-city";
         location.textContent = city + ", " + country;
         const text = document.createElement("p");
         text.textContent = tagline;
+        text.className += "information-photographer-text";
         const textprice = document.createElement("p");
         textprice.textContent = price+"€/jour";
+        textprice.className += "information-photographer-textprice";
         blockbottom.appendChild(location);
         blockbottom.appendChild(text);
         blockbottom.appendChild(textprice);
