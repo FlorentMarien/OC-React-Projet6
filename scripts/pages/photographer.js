@@ -33,29 +33,31 @@ async function displayDataMedia() {
     document.getElementById("section_gallery").textContent="";
     let totallike = 0;
     arrayMedia.forEach((element)=>{
-        totallike+=element.likes;
+        let objMedia = new MediaFactory(element);
+        totallike+=objMedia.getLikes;
         let block = document.createElement("div");
-        block.addEventListener("click",function(ev){ openLightboxModal(arrayMedia, element.id)});
+        block.addEventListener("click",function(ev){ openLightboxModal(arrayMedia, objMedia.getId)});
         let block_bottom = document.createElement("div");
         block.className+="gallery_media";
         let media;
-        if(element.video != undefined){
+        if(objMedia instanceof MediaVideo){
             media = document.createElement("video");
-            media.src = "/../assets/photograhersPhotos/"+element.photographerId+"/"+element.video;
+            media.src = "/../assets/photograhersPhotos/"+objMedia.getPhotographerId+"/"+objMedia.getVideo;
             media.type = "video/mp4";       
-        }else{
+        }else if(objMedia instanceof MediaImages){
             media = document.createElement("img");
-            media.src = "/../assets/photograhersPhotos/"+element.photographerId+"/"+element.image;
+            media.src = "/../assets/photograhersPhotos/"+objMedia.getPhotographerId+"/"+objMedia.getImage;
         }
+
         block.appendChild(media);
         let title = document.createElement("p");
-        title.textContent = element.title;
+        title.textContent = objMedia.getTitle;
         block_bottom.appendChild(title);
         let likes = document.createElement("p");
         let logolikes = document.createElement("img");
         logolikes.className+="logoheart";
         logolikes.src="/../assets/icons/heart.svg";
-        likes.textContent=element.likes;
+        likes.textContent=objMedia.getLikes;
         block_bottom.appendChild(likes);
         block_bottom.appendChild(logolikes);
         block.appendChild(block_bottom);
@@ -183,14 +185,8 @@ function filterDataMedia(filter, media){
 }
 function openLightboxModal(arrayMedia,id){
     document.getElementById("lightbox-modal").style.display = "block";
-    //document.getElementById("btn-closeLightboxModal").addEventListener("click",closeLightboxModal);
     arrayMedia.forEach((element)=>{
         if(element.id == id){
-            /*
-            <header>
-                <img src="assets/icons/close.svg" id="btn-closeLightboxModal" onclick="closeLightboxModal()"/>
-            </header>
-            */
             let container_back = document.createElement("div");
             let container_middle = document.createElement("div");
             let container_forward = document.createElement("div");
@@ -234,6 +230,11 @@ function openLightboxModal(arrayMedia,id){
             container_middle.appendChild(media);
             document.getElementById("lightbox-modal-container").appendChild(container_middle);
             document.getElementById("lightbox-modal-container").appendChild(container_forward);
+            document.getElementsByTagName("body")[0].onkeyup=function(e){
+                if(e.keyCode == 27) btnquit.click();
+                if(e.keyCode == 37) back.click();
+                if(e.keyCode == 39) forward.click();
+            };
         }
     });
 }
@@ -304,6 +305,7 @@ function lightboxForward(arrayMedia){
     });
 }
 function closeLightboxModal(){
+    document.getElementsByTagName("body")[0].onkeyup="";
     document.getElementById("lightbox-modal").style.display = "none";
     document.getElementById("lightbox-modal-container").textContent = "";
 }
@@ -349,4 +351,5 @@ async function init(){
     }
 }
 let id = null;
+let eventshortcut = null;
 init();
