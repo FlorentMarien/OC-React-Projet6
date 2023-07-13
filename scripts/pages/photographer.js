@@ -36,7 +36,7 @@ async function displayDataMedia() {
         let objMedia = new MediaFactory(element);
         totallike+=objMedia.getLikes;
         let block = objMedia.getMediaCard;
-        block.addEventListener("click",function(ev){ openLightboxModal(arrayMedia, objMedia.getId)});
+        block.childNodes[0].addEventListener("click",function(ev){ openLightboxModal(arrayMedia, objMedia.getId)});
         photographersSection.appendChild(block);
     });
     //Affichage information
