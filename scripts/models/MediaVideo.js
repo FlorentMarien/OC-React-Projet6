@@ -30,4 +30,29 @@ class MediaVideo {
     get getVideo() {
         return this._video
     }
+    set setLike(element) {
+        this._likes+=1;
+    }
+    get getMediaCard(){
+        let block = document.createElement("div");
+        let block_bottom = document.createElement("div");
+        block.className+="gallery_media";
+        let media;
+        media = document.createElement("video");
+        media.src = "/../assets/photograhersPhotos/"+this._photographerId+"/"+this._video;
+        media.type = "video/mp4";       
+        block.appendChild(media);
+        let title = document.createElement("p");
+        title.textContent = this._title;
+        block_bottom.appendChild(title);
+        let likes = document.createElement("p");
+        let logolikes = document.createElement("img");
+        logolikes.className+="logoheart";
+        logolikes.src="/../assets/icons/heart.svg";
+        likes.textContent=this._likes;
+        block_bottom.appendChild(likes);
+        block_bottom.appendChild(logolikes);
+        block.appendChild(block_bottom);
+        return block;
+    }
 }

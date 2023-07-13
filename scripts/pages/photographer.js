@@ -35,32 +35,8 @@ async function displayDataMedia() {
     arrayMedia.forEach((element)=>{
         let objMedia = new MediaFactory(element);
         totallike+=objMedia.getLikes;
-        let block = document.createElement("div");
+        let block = objMedia.getMediaCard;
         block.addEventListener("click",function(ev){ openLightboxModal(arrayMedia, objMedia.getId)});
-        let block_bottom = document.createElement("div");
-        block.className+="gallery_media";
-        let media;
-        if(objMedia instanceof MediaVideo){
-            media = document.createElement("video");
-            media.src = "/../assets/photograhersPhotos/"+objMedia.getPhotographerId+"/"+objMedia.getVideo;
-            media.type = "video/mp4";       
-        }else if(objMedia instanceof MediaImages){
-            media = document.createElement("img");
-            media.src = "/../assets/photograhersPhotos/"+objMedia.getPhotographerId+"/"+objMedia.getImage;
-        }
-
-        block.appendChild(media);
-        let title = document.createElement("p");
-        title.textContent = objMedia.getTitle;
-        block_bottom.appendChild(title);
-        let likes = document.createElement("p");
-        let logolikes = document.createElement("img");
-        logolikes.className+="logoheart";
-        logolikes.src="/../assets/icons/heart.svg";
-        likes.textContent=objMedia.getLikes;
-        block_bottom.appendChild(likes);
-        block_bottom.appendChild(logolikes);
-        block.appendChild(block_bottom);
         photographersSection.appendChild(block);
     });
     //Affichage information
@@ -184,6 +160,7 @@ function filterDataMedia(filter, media){
     }
 }
 function openLightboxModal(arrayMedia,id){
+    console.log("ok");
     document.getElementById("lightbox-modal").style.display = "block";
     arrayMedia.forEach((element)=>{
         if(element.id == id){
