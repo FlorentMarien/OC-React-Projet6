@@ -46,6 +46,11 @@ button:hover{
 .gallery_media div p{
     color: #901C1C;
 }
+.gallery_media div div{
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
 .contact_button {
     font-size: 20px;
     font-weight: bold;
@@ -162,8 +167,23 @@ form input {
     width: 200px;
     height: 200px;
 }
-.logoheart{
-    
+.logoheart path{
+    /*animation-duration: 10s;
+    animation-name: heartlike;*/
+    fill: #901C1C;
+}
+svg path{
+    height: 100%;
+}
+.animheartlike{
+    animation-duration: 3s;
+    animation-name: heartlike;
+    animation-fill-mode: forwards;
+}
+.animheartdislike{
+    animation-duration: 3s;
+    animation-name: heartdislike;
+    animation-fill-mode: forwards;
 }
 .container_price-absolute{
     position: fixed;
@@ -233,4 +253,12 @@ form input {
 .lightbox-back img, .lightbox-forward img{
     width: 100px;
     height: 100px;
+}
+@keyframes heartlike{
+    0%{fill: #901C1C;}
+    100%{fill: pink;}
+}
+@keyframes heartdislike{
+    0%{fill:pink;}
+    100%{fill: #901C1C;}
 }
