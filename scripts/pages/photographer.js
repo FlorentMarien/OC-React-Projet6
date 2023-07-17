@@ -33,8 +33,12 @@ async function displayDataMedia() {
     document.getElementById("section_gallery").textContent="";
     let totallike = 0;
     arrayMedia.forEach((element)=>{
+        //let test = new testClass(element.id);
+        //test.touchname();
+        //console.log("123");
         let objMedia = new MediaFactory(element);
         totallike+=objMedia.getLikes;
+        objMedia.setLike;
         let block = objMedia.getMediaCard;
         block.childNodes[0].addEventListener("click",function(ev){ openLightboxModal(arrayMedia, objMedia.getId)});
         photographersSection.appendChild(block);
@@ -160,7 +164,6 @@ function filterDataMedia(filter, media){
     }
 }
 function openLightboxModal(arrayMedia,id){
-    console.log("ok");
     document.getElementById("lightbox-modal").style.display = "block";
     arrayMedia.forEach((element)=>{
         if(element.id == id){

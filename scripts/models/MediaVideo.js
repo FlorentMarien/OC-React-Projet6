@@ -30,13 +30,22 @@ class MediaVideo {
     get getVideo() {
         return this._video
     }
-    set setLike(element) {
-        this._likes+=1;
+    setLike() {
+        let focus = document.getElementById("media-"+this._id);
+        if(Number(focus.childNodes[1].childNodes[1].textContent) == this._likes){ 
+            focus.childNodes[1].childNodes[1].textContent = this._likes+1;
+            document.getElementsByClassName("container_price-absolute")[0].childNodes[0].childNodes[0].textContent = Number(document.getElementsByClassName("container_price-absolute")[0].childNodes[0].childNodes[0].textContent)+1;
+        }
+        else{
+            focus.childNodes[1].childNodes[1].textContent = this._likes;
+            document.getElementsByClassName("container_price-absolute")[0].childNodes[0].childNodes[0].textContent = Number(document.getElementsByClassName("container_price-absolute")[0].childNodes[0].childNodes[0].textContent)-1;
+        }
     }
     get getMediaCard(){
         let block = document.createElement("div");
         let block_bottom = document.createElement("div");
         block.className+="gallery_media";
+        block.id="media-"+this._id;
         let media;
         media = document.createElement("video");
         media.src = "/../assets/photograhersPhotos/"+this._photographerId+"/"+this._video;
@@ -49,6 +58,8 @@ class MediaVideo {
         let logolikes = document.createElement("img");
         logolikes.className+="logoheart";
         logolikes.src="/../assets/icons/heart.svg";
+        let pointer = this; 
+        logolikes.addEventListener("click",function(ev){pointer.setLike(pointer)});
         likes.textContent=this._likes;
         block_bottom.appendChild(likes);
         block_bottom.appendChild(logolikes);
