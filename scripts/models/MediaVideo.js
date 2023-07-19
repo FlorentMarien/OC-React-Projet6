@@ -33,8 +33,8 @@ class MediaVideo {
     setLike(ev) {
         console.log(this._id);
         let focus = document.getElementById("media-"+this._id);
-        if(Number(focus.childNodes[1].childNodes[1].textContent) == this._likes){ 
-            focus.childNodes[1].childNodes[1].textContent = this._likes+1;
+        if(Number(focus.childNodes[1].childNodes[1].childNodes[0].textContent) == this._likes){ 
+            focus.childNodes[1].childNodes[1].childNodes[0].textContent = this._likes+1;
             document.getElementsByClassName("container_price-absolute")[0].childNodes[0].childNodes[0].textContent = Number(document.getElementsByClassName("container_price-absolute")[0].childNodes[0].childNodes[0].textContent)+1;
             let target = ev.target.localName == "svg" ? ev.target.childNodes[1] : ev.target;
             target.setAttribute("class","animheartlike");
@@ -45,7 +45,7 @@ class MediaVideo {
             }, 3000);
         }
         else{
-            focus.childNodes[1].childNodes[1].textContent = this._likes;
+            focus.childNodes[1].childNodes[1].childNodes[0].textContent = this._likes;
             document.getElementsByClassName("container_price-absolute")[0].childNodes[0].childNodes[0].textContent = Number(document.getElementsByClassName("container_price-absolute")[0].childNodes[0].childNodes[0].textContent)-1;
             let target = ev.target.localName == "svg" ? ev.target.childNodes[1] : ev.target;
             target.setAttribute("class","animheartdislike");
@@ -66,6 +66,7 @@ class MediaVideo {
         media.src = "/../assets/photograhersPhotos/"+this._photographerId+"/"+this._video;
         media.type = "video/mp4";       
         block.appendChild(media);
+        let block_right = document.createElement("div");
         let title = document.createElement("p");
         title.textContent = this._title;
         block_bottom.appendChild(title);
@@ -75,8 +76,9 @@ class MediaVideo {
         let pointer = this; 
         logolikes.addEventListener("click",function(ev){pointer.setLike(ev)});
         likes.textContent=this._likes;
-        block_bottom.appendChild(likes);
-        block_bottom.appendChild(logolikes);
+        block_right.appendChild(likes);
+        block_right.appendChild(logolikes);
+        block_bottom.appendChild(block_right);
         block.appendChild(block_bottom);
         return block;
     }

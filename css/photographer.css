@@ -137,18 +137,24 @@ form input {
     justify-content: start;
 }
 .gallery_media{
-    width: 20%;
-    margin: 2.5%;
+    width: 250px;
+    margin-left: calc((100% - 750px)/6);
+    margin-right: calc((100% - 750px)/6);
+    margin-top: 25px;
+    margin-bottom: 25px;
     text-align: center;
 }
 .gallery_media > img{
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
+    object-fit: fill;
 }
 .gallery_media div{
     display: flex;
+    justify-content: space-between;
 }
 .gallery_media div p{
+    text-align: left;
     width: 70%;
 }
 .gallery_media div p + p{
@@ -164,8 +170,9 @@ form input {
     align-self: center; 
 }
 .gallery_media video{
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
+    object-fit: fill;
 }
 .logoheart path{
     /*animation-duration: 10s;

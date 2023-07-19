@@ -28,6 +28,7 @@ function verifForm(e){
     };
     document.getElementById("modal-container-form").style.display = "none";
     document.getElementById("modal-container-form-succes").textContent = "Merci pour votre message "+form.nom.value+" "+form.prenom.value;
+    console.log(form);
     document.getElementById("modal-container-form-succes").style.display = "block";
     // Reset formulaire
     form.nom.value = "";
