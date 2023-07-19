@@ -64,7 +64,8 @@ class MediaVideo {
         let media;
         media = document.createElement("video");
         media.src = "/../assets/photograhersPhotos/"+this._photographerId+"/"+this._video;
-        media.type = "video/mp4";       
+        media.type = "video/mp4";
+        media.title = this._video;       
         block.appendChild(media);
         let block_right = document.createElement("div");
         let title = document.createElement("p");

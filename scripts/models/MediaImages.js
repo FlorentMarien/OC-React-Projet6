@@ -59,6 +59,7 @@ class MediaImages{
         let media;
         media = document.createElement("img");
         media.src = "/../assets/photograhersPhotos/"+this._photographerId+"/"+this._image;
+        media.setAttribute("alt", this._image);
         block.appendChild(media);
         let block_right = document.createElement("div");
         let title = document.createElement("p");

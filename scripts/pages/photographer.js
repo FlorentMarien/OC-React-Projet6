@@ -321,6 +321,7 @@ async function init(){
 
             let photographeImage=document.createElement("img");
             photographeImage.setAttribute("src", "/assets/photographers/"+photographer.portrait);
+            photographeImage.alt = photographer.name;
             photographePdp.appendChild(photographeImage);
             
             // Affichage gallery
