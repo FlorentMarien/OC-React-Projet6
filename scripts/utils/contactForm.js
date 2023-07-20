@@ -15,7 +15,8 @@ function closeModal() {
 }
 function verifForm(e){
     e.preventDefault();
-    if(document.getElementById("prenom").value.length >= 2 && document.getElementById("nom").value.length >= 2 && document.getElementById("email").value != "" && document.getElementById("message").value.length >= 10){
+    
+    if(document.getElementById("prenom").value.length >= 2 && document.getElementById("nom").value.length >= 2 && ((!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(document.getElementById("email").value))) != true) && document.getElementById("message").value.length >= 10){
     document.getElementById("error-prenom").style.display = "none";
     document.getElementById("error-nom").style.display = "none";
     document.getElementById("error-email").style.display = "none";
@@ -48,8 +49,8 @@ function verifForm(e){
         }else{
             document.getElementById("error-nom").style.display = "none";
         }
-        if(document.getElementById("email").value == ""){
-            document.getElementById("error-email").textContent = "Vous n'avez rien saisi";
+        if((/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(document.getElementById("email").value)) == false){
+            document.getElementById("error-email").textContent = "Vous n'avez pas saisi une adresse mail correct";
             document.getElementById("error-email").style.display = "block";
         }else{
             document.getElementById("error-email").style.display = "none";
