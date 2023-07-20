@@ -9,7 +9,8 @@ function photographerTemplate(data) {
         const blockbottom = document.createElement('div');
         blockhigh.setAttribute("onclick", "location.href = 'photographer.html?id="+id+"'");
         const img = document.createElement( 'img' );
-        img.setAttribute("src", picture)
+        img.setAttribute("src", picture);
+        img.alt = name;
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
         blockhigh.appendChild(img);

@@ -289,7 +289,7 @@ svg path{
         margin-left: 0px;
     }
     .photograph-header{
-        flex-direction: column;
+        flex-direction: column-reverse;
         height: auto;
     }
     div #photographe-information,div #photographe-contact,div #photographe-pdp{
