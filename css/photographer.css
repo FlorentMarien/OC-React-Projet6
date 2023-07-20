@@ -1,3 +1,10 @@
+html{
+    display: flex;
+    justify-content: center;
+}
+body{
+    max-width: 1500px;
+}
 #contact_modal {
     display: none;
     position: fixed;
@@ -52,18 +59,20 @@ button:hover{
     align-items: center;    
 }
 .contact_button {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     color: white;
     padding: 11px;
-    width: 170px;
-    height: 70px;
+    width: 155px;
+    height: 55px;
     border: none;
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
 }
-
+#photographe-information div h1{
+    font-size: 36px;
+}
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
@@ -180,12 +189,12 @@ svg path{
     height: 100%;
 }
 .animheartlike{
-    animation-duration: 3s;
+    animation-duration: 1s;
     animation-name: heartlike;
     animation-fill-mode: forwards;
 }
 .animheartdislike{
-    animation-duration: 3s;
+    animation-duration: 1s;
     animation-name: heartdislike;
     animation-fill-mode: forwards;
 }
@@ -270,7 +279,7 @@ svg path{
     0%{fill:pink;}
     100%{fill: #901C1C;}
 }
-@media (max-width: 875.98px) {
+@media (max-width: 975.98px){
     header .logo{
         margin-left: 25px;
     }
@@ -280,6 +289,9 @@ svg path{
     #gallery{
         margin: 0 25px;
     }
+}
+@media (max-width: 875.98px) {
+    
 }
 @media (max-width: 575.98px) {
     body header{

@@ -39,7 +39,7 @@ class MediaImages{
             target.setAttribute("class","animheartlike");
             let interval = setInterval(function(){
                 clearInterval(interval);
-            }, 3000);
+            }, 1000);
         }
         else{
             focus.childNodes[1].childNodes[1].childNodes[0].textContent = this._likes;
@@ -48,7 +48,7 @@ class MediaImages{
             target.setAttribute("class","animheartdislike");
             let interval = setInterval(function(){
                 clearInterval(interval);
-            }, 3000);
+            }, 1000);
         }
     }
     get getMediaCard(){

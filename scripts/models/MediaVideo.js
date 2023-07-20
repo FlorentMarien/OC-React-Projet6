@@ -42,7 +42,7 @@ class MediaVideo {
                 console.log("del timer");
                 //target.removeAttribute("class");
                 clearInterval(interval);
-            }, 3000);
+            }, 1000);
         }
         else{
             focus.childNodes[1].childNodes[1].childNodes[0].textContent = this._likes;
@@ -53,7 +53,7 @@ class MediaVideo {
                 console.log("del timer");
                 //target.removeAttribute("class");
                 clearInterval(interval);
-            }, 3000);
+            }, 1000);
         }
     }
     get getMediaCard(){
