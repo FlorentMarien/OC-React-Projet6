@@ -239,6 +239,9 @@ svg path{
     align-items: center;
     height: 100vh;
 }
+#lightbox-image{
+    object-fit: scale-down;
+}
 #lightbox-middle{
     height:100vh;
 }
