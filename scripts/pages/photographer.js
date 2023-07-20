@@ -4,26 +4,24 @@ async function getPhotographers (id) {
   const photographers = await response.json()
   let savephotographer
   photographers.photographers.forEach((element) => {
-    if (element.id == id) {
+    if (element.id === Number(id)) {
       savephotographer = element
     }
   })
-  if (savephotographer != undefined) return savephotographer
+  if (savephotographer !== undefined) return savephotographer
   else return 'id not found'
-  // return "id not found";
 }
 async function getMediaPhotographers (id) {
   const response = await fetch('/../data/photographers.json')
   const photographers = await response.json()
   const savephotographer = []
   photographers.media.forEach((element) => {
-    if (element.photographerId == id) {
+    if (element.photographerId === Number(id)) {
       savephotographer.push(element)
     }
   })
-  if (savephotographer != undefined) return savephotographer
+  if (savephotographer !== undefined) return savephotographer
   else return 'id not found'
-  // return "id not found";
 }
 async function displayDataMedia () {
   const photographersSection = document.getElementById('section_gallery')
@@ -33,9 +31,6 @@ async function displayDataMedia () {
   document.getElementById('section_gallery').textContent = ''
   let totallike = 0
   arrayMedia.forEach((element) => {
-    // let test = new testClass(element.id);
-    // test.touchname();
-    // console.log("123");
     const objMedia = new MediaFactory(element)
     totallike += objMedia.getLikes
     objMedia.setLike
@@ -73,7 +68,7 @@ function filterDataMedia (filter, media) {
   switch (filter) {
     case 'Popularité':
       while (x < media.length) {
-        if (media[x + 1] == undefined) {
+        if (media[x + 1] === undefined) {
           x = x + 2
         } else {
           if (media[x].likes >= media[x + 1].likes) {
@@ -89,7 +84,7 @@ function filterDataMedia (filter, media) {
       return media
     case 'Date':
       while (x < media.length) {
-        if (media[x + 1] == undefined) {
+        if (media[x + 1] === undefined) {
           x += 2
         } else {
           if (isNaN(Date.parse(media[x].date))) {
@@ -114,29 +109,29 @@ function filterDataMedia (filter, media) {
       return media
     case 'Titre':
       // z = pointerarray / y = pointerchar
-      let z = 0
-      let y = 0
-      while (z < media.length - 1) {
+      let pointerz = 0
+      let pointery = 0
+      while (pointerz < media.length - 1) {
         let a
         let b
-        a = media[z].title
-        b = media[z + 1].title
-        if (a.charCodeAt(y) === b.charCodeAt(y)) {
+        a = media[pointerz].title
+        b = media[pointerz + 1].title
+        if (a.charCodeAt(pointery) === b.charCodeAt(pointery)) {
           if (a === b) {
-            z = z + 1
-            y = 0
+            pointerz = pointerz + 1
+            pointery = 0
           } else {
-            y = y + 1
+            pointery = pointery + 1
           }
-        } else if (a.charCodeAt(y) < b.charCodeAt(y)) {
-          z = z + 1
-          y = 0
-        } else if (a.charCodeAt(y) > b.charCodeAt(y)) {
-          const tampon = media[z]
-          media[z] = media[z + 1]
-          media[z + 1] = tampon
-          z = 0
-          y = 0
+        } else if (a.charCodeAt(pointery) < b.charCodeAt(pointery)) {
+          pointerz = pointerz + 1
+          pointery = 0
+        } else if (a.charCodeAt(pointery) > b.charCodeAt(pointery)) {
+          const tampon = media[pointerz]
+          media[pointerz] = media[pointerz + 1]
+          media[pointerz + 1] = tampon
+          pointerz = 0
+          pointery = 0
         }
       }
       return media
@@ -147,7 +142,7 @@ function filterDataMedia (filter, media) {
 function openLightboxModal (arrayMedia, id) {
   document.getElementById('lightbox-modal').style.display = 'block'
   arrayMedia.forEach((element) => {
-    if (element.id == id) {
+    if (element.id === id) {
       const containerBack = document.createElement('div')
       const containerMiddle = document.createElement('div')
       const containerForward = document.createElement('div')
@@ -172,7 +167,7 @@ function openLightboxModal (arrayMedia, id) {
       containerForward.appendChild(forward)
       document.getElementById('lightbox-modal-container').appendChild(containerBack)
       let media
-      if (element.image == undefined) {
+      if (element.image === undefined) {
         const videocontrol = document.createElement('video')
         videocontrol.className = 'videolightbox'
         videocontrol.controls = ' '
@@ -195,22 +190,22 @@ function openLightboxModal (arrayMedia, id) {
       document.getElementById('lightbox-modal-container').appendChild(containerMiddle)
       document.getElementById('lightbox-modal-container').appendChild(containerForward)
       document.getElementsByTagName('body')[0].onkeyup = function (e) {
-        if (e.keyCode == 27) btnquit.click()
-        if (e.keyCode == 37) back.click()
-        if (e.keyCode == 39) forward.click()
+        if (e.keyCode === 27) btnquit.click()
+        if (e.keyCode === 37) back.click()
+        if (e.keyCode === 39) forward.click()
       }
     }
   })
 }
 function lightboxBack (arrayMedia) {
   let pointer = 0
-  const photoId = document.getElementById('lightbox-image') != undefined ? document.getElementById('lightbox-image').name : document.getElementById('lightbox-video').name
+  const photoId = document.getElementById('lightbox-image') !== null ? document.getElementById('lightbox-image').name : document.getElementById('lightbox-video').name
   arrayMedia.every((element) => {
-    if (element.id == photoId) {
+    if (element.id === Number(photoId)) {
       document.getElementById('lightbox-middle').textContent = ''
-      if (pointer == 0) pointer = arrayMedia.length - 1
+      if (pointer === 0) pointer = arrayMedia.length - 1
       else pointer -= 1
-      if (arrayMedia[pointer].hasOwnProperty('image') === true) {
+      if (arrayMedia[pointer].image !== undefined) {
         const image = document.createElement('img')
         image.src = '/../assets/photograhersPhotos/' + id + '/' + arrayMedia[pointer].image
         image.className = 'imgLightbox'
@@ -237,13 +232,13 @@ function lightboxBack (arrayMedia) {
 }
 function lightboxForward (arrayMedia) {
   let pointer = 0
-  const photoId = document.getElementById('lightbox-image') != undefined ? document.getElementById('lightbox-image').name : document.getElementById('lightbox-video').name
+  const photoId = document.getElementById('lightbox-image') !== null ? document.getElementById('lightbox-image').name : document.getElementById('lightbox-video').name
   arrayMedia.every((element) => {
-    if (element.id == photoId) {
+    if (element.id === Number(photoId)) {
       if (pointer >= arrayMedia.length - 1) pointer = 0
       else pointer += 1
       document.getElementById('lightbox-middle').textContent = ''
-      if ((arrayMedia[pointer].hasOwnProperty('image') === true)) {
+      if ((arrayMedia[pointer].image !== undefined)) {
         const image = document.createElement('img')
         image.src = '/../assets/photograhersPhotos/' + id + '/' + arrayMedia[pointer].image
         image.className = 'imgLightbox'
@@ -277,14 +272,13 @@ async function init () {
   const url = new URL(window.location)
   const searchParam = new URLSearchParams(url.search)
   id = searchParam.get('id')
-  if (id == null || id == undefined || id == '') {
+  if (id === null || id === undefined || id === '') {
     // Securité
     window.location = 'index.html'
   } else {
     const photographer = await getPhotographers(id)
-    if (photographer == 'id not found') window.location = 'index.html'
+    if (photographer === 'id not found') window.location = 'index.html'
     else {
-      // Modif modal form
       document.getElementById('form-namephotographer').textContent = photographer.name
       document.getElementsByClassName('contact_button')[1].addEventListener('click', function (e) { verifForm(e) })
       // Block information photographes
