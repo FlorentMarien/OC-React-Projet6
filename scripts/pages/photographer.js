@@ -52,6 +52,7 @@ async function displayDataInformation (totallike) {
   const blockHearticone = document.createElement('img')
   blockHearticone.className += 'container_price-absolute_logoheart'
   blockHearticone.src = '/../assets/icons/heart-black.svg'
+  blockHearticone.alt = 'logo coeur'
   blockLeft.appendChild(blockNbrlikes)
   blockLeft.appendChild(blockHearticone)
   const blockPrices = document.createElement('p')
@@ -65,6 +66,8 @@ function filterDataMedia (filter, media) {
   // Media = Array[array[img,title,like,date...],array[vid,title...]]
   let x
   x = 0
+  let pointerz = 0
+  let pointery = 0
   switch (filter) {
     case 'Popularité':
       while (x < media.length) {
@@ -109,13 +112,9 @@ function filterDataMedia (filter, media) {
       return media
     case 'Titre':
       // z = pointerarray / y = pointerchar
-      let pointerz = 0
-      let pointery = 0
       while (pointerz < media.length - 1) {
-        let a
-        let b
-        a = media[pointerz].title
-        b = media[pointerz + 1].title
+        const a = media[pointerz].title
+        const b = media[pointerz + 1].title
         if (a.charCodeAt(pointery) === b.charCodeAt(pointery)) {
           if (a === b) {
             pointerz = pointerz + 1
@@ -156,8 +155,11 @@ function openLightboxModal (arrayMedia, id) {
       forward.addEventListener('click', function () { lightboxForward(arrayMedia) })
       btnquit.addEventListener('click', closeLightboxModal)
       back.src = '/../assets/icons/back.svg'
+      back.alt = 'Retour'
       forward.src = '/../assets/icons/forward.svg'
+      forward.alt = 'Avancer'
       btnquit.src = 'assets/icons/close.svg'
+      btnquit.alt = 'Quitter'
       btnquit.id = 'btn-closeLightboxModal'
       containerBack.className = 'lightbox-back'
       containerMiddle.id = 'lightbox-middle'
@@ -176,6 +178,7 @@ function openLightboxModal (arrayMedia, id) {
         video.src = '/../assets/photograhersPhotos/' + element.photographerId + '/' + element.video
         video.type = 'video/mp4'
         video.name = element.id
+        video.alt = element.title
         videocontrol.appendChild(video)
         media = videocontrol
       } else {
@@ -184,6 +187,7 @@ function openLightboxModal (arrayMedia, id) {
         img.id = 'lightbox-image'
         img.name = element.id
         img.src = '/../assets/photograhersPhotos/' + element.photographerId + '/' + element.image
+        img.alt = element.title
         media = img
       }
       containerMiddle.appendChild(media)

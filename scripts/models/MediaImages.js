@@ -66,7 +66,7 @@ class MediaImages {
     block.id = 'media-' + this._id
     const media = document.createElement('img')
     media.src = '/../assets/photograhersPhotos/' + this._photographerId + '/' + this._image
-    media.setAttribute('alt', this._image)
+    media.setAttribute('alt', this._title)
     block.appendChild(media)
     const blockRight = document.createElement('div')
     const title = document.createElement('p')

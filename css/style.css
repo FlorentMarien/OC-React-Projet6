@@ -18,6 +18,9 @@ h1 {
     color: #D3573C;
     margin-right: 100px;
 }
+h2{
+    white-space: pre;
+}
 
 .logo {
     height: 50px;
