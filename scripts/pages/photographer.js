@@ -30,12 +30,19 @@ async function displayDataMedia () {
   // Gallery
   document.getElementById('section_gallery').textContent = ''
   let totallike = 0
+  const x = 1
   arrayMedia.forEach((element) => {
     const objMedia = new MediaFactory(element)
     totallike += objMedia.getLikes
     objMedia.setLike
     const block = objMedia.getMediaCard
-    block.childNodes[0].addEventListener('click', function (ev) { openLightboxModal(arrayMedia, objMedia.getId) })
+    block.tabIndex = x
+    block.childNodes[0].onclick = function (ev) { openLightboxModal(arrayMedia, objMedia.getId) }
+    block.childNodes[0].onkeyup = function (e) {
+      if (e.keyCode === 13) {
+        if (document.getElementById('lightbox-modal').style.display !== 'block') openLightboxModal(arrayMedia, objMedia.getId)
+      }
+    }
     photographersSection.appendChild(block)
   })
   // Affichage information
@@ -59,6 +66,7 @@ async function displayDataInformation (totallike) {
   blockPrices.textContent = photographeInfo.price + 'e/jour'
   block.appendChild(blockLeft)
   block.appendChild(blockPrices)
+  block.tabIndex = '1'
   document.getElementById('main').appendChild(block)
 }
 function filterDataMedia (filter, media) {
@@ -164,6 +172,9 @@ function openLightboxModal (arrayMedia, id) {
       containerBack.className = 'lightbox-back'
       containerMiddle.id = 'lightbox-middle'
       containerForward.className = 'lightbox-forward'
+      back.tabIndex = 1
+      btnquit.tabIndex = 1
+      forward.tabIndex = 1
       containerBack.appendChild(back)
       containerForward.appendChild(btnquit)
       containerForward.appendChild(forward)
@@ -179,6 +190,7 @@ function openLightboxModal (arrayMedia, id) {
         video.type = 'video/mp4'
         video.name = element.id
         video.alt = element.title
+        video.setAttribute('autoplay', true)
         videocontrol.appendChild(video)
         media = videocontrol
       } else {
@@ -190,13 +202,22 @@ function openLightboxModal (arrayMedia, id) {
         img.alt = element.title
         media = img
       }
+      media.tabIndex = 1
       containerMiddle.appendChild(media)
       document.getElementById('lightbox-modal-container').appendChild(containerMiddle)
       document.getElementById('lightbox-modal-container').appendChild(containerForward)
+      document.getElementById('lightbox-modal').tabIndex = 1
+      document.getElementById('lightbox-modal').focus()
       document.getElementsByTagName('body')[0].onkeyup = function (e) {
         if (e.keyCode === 27) btnquit.click()
         if (e.keyCode === 37) back.click()
         if (e.keyCode === 39) forward.click()
+        if (e.keyCode === 13) {
+          if (document.getElementsByTagName('video')[1] !== undefined) {
+            if (document.getElementsByTagName('video')[1].paused === true) document.getElementsByTagName('video')[1].play()
+            else document.getElementsByTagName('video')[1].pause()
+          }
+        }
       }
     }
   })
@@ -215,18 +236,25 @@ function lightboxBack (arrayMedia) {
         image.className = 'imgLightbox'
         image.id = 'lightbox-image'
         image.name = arrayMedia[pointer].id
+        image.tabIndex = 1
+        image.alt = arrayMedia[pointer].title
         document.getElementById('lightbox-middle').appendChild(image)
+        document.getElementById('lightbox-middle').childNodes[0].focus()
       } else {
         const videocontrol = document.createElement('video')
         videocontrol.className = 'videolightbox'
         videocontrol.controls = ' '
+        videocontrol.tabIndex = 1
+        videocontrol.alt = arrayMedia[pointer].title
         const video = document.createElement('source')
         video.id = 'lightbox-video'
         video.src = '/../assets/photograhersPhotos/' + id + '/' + arrayMedia[pointer].video
         video.type = 'video/mp4'
         video.name = arrayMedia[pointer].id
+
         videocontrol.appendChild(video)
         document.getElementById('lightbox-middle').appendChild(videocontrol)
+        videocontrol.focus()
       }
       return false
     }
@@ -248,11 +276,16 @@ function lightboxForward (arrayMedia) {
         image.className = 'imgLightbox'
         image.id = 'lightbox-image'
         image.name = arrayMedia[pointer].id
+        image.tabIndex = 1
+        image.alt = arrayMedia[pointer].title
         document.getElementById('lightbox-middle').appendChild(image)
+        document.getElementById('lightbox-middle').childNodes[0].focus()
       } else {
         const videocontrol = document.createElement('video')
         videocontrol.className = 'videolightbox'
         videocontrol.controls = ' '
+        videocontrol.tabIndex = 1
+        videocontrol.alt = arrayMedia[pointer].title
         const video = document.createElement('source')
         video.id = 'lightbox-video'
         video.src = '/../assets/photograhersPhotos/' + id + '/' + arrayMedia[pointer].video
@@ -260,6 +293,7 @@ function lightboxForward (arrayMedia) {
         video.name = arrayMedia[pointer].id
         videocontrol.appendChild(video)
         document.getElementById('lightbox-middle').appendChild(videocontrol)
+        videocontrol.focus()
       }
       return false
     }
@@ -271,6 +305,7 @@ function closeLightboxModal () {
   document.getElementsByTagName('body')[0].onkeyup = ''
   document.getElementById('lightbox-modal').style.display = 'none'
   document.getElementById('lightbox-modal-container').textContent = ''
+  document.getElementById('gallery').focus()
 }
 async function init () {
   const url = new URL(window.location)
@@ -280,6 +315,9 @@ async function init () {
     // Securité
     window.location = 'index.html'
   } else {
+    document.getElementsByTagName('header')[0].children[0].addEventListener('keydown', function (e) {
+      if (e.keyCode === 13) location.href = 'index.html'
+    })
     const photographer = await getPhotographers(id)
     if (photographer === 'id not found') window.location = 'index.html'
     else {
@@ -287,7 +325,7 @@ async function init () {
       document.getElementsByClassName('contact_button')[1].addEventListener('click', function (e) { verifForm(e) })
       // Block information photographes
       const photographeInformation = document.getElementById('photographe-information')
-      const photographePdp = document.getElementById('photographe-pdp')
+      const photographeHeader = document.getElementsByClassName('photograph-header')[0]
       const containerinformation = document.createElement('div')
       const name = document.createElement('h1')
       name.textContent = photographer.name
@@ -304,7 +342,8 @@ async function init () {
       const photographeImage = document.createElement('img')
       photographeImage.setAttribute('src', '/assets/photographers/' + photographer.portrait)
       photographeImage.alt = photographer.name
-      photographePdp.appendChild(photographeImage)
+      photographeImage.tabIndex = '1'
+      photographeHeader.appendChild(photographeImage)
 
       // Affichage gallery
       document.getElementById('filtergallery').addEventListener('change', displayDataMedia)
