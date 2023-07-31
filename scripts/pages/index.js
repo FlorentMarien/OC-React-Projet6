@@ -7,10 +7,11 @@ async function getPhotographers () {
 
 async function displayData (photographers) {
   const photographersSection = document.querySelector('.photographer_section')
-
+  const x = 1
   photographers.forEach((photographer) => {
     const photographerModel = photographerTemplate(photographer)
     const userCardDOM = photographerModel.getUserCardDOM()
+    userCardDOM.tabIndex = x
     photographersSection.appendChild(userCardDOM)
   })
 }

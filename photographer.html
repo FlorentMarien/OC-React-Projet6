@@ -9,22 +9,21 @@
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" onclick="location.href = 'index.html';" class="logo" alt="Fisheye Home page"/>
+      <img src="assets/images/logo.png" onclick="location.href = 'index.html';" class="logo" alt="Fisheye Home page" tabindex="1"/>
     </header>
     <main id="main">
       <div class="photograph-header">
-        <article id="photographe-information"></article>
-        <article id="photographe-contact">
-          <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <article id="photographe-information" tabindex="1"></article>
+        <article id="photographe-contact" >
+          <button class="contact_button" onclick="displayModal()" tabindex="1">Contactez-moi</button>
         </article>
-        <article id="photographe-pdp"></article>
       </div>
       <div id="gallery">
         <div>
           <label for="filtergallery">
             Trier par:
           </label>
-          <select class="select-filter" name="filter" id="filtergallery">
+          <select class="select-filter" name="filter" id="filtergallery" tabindex="1">
             <option class="select-filter-option">Popularité</option>
             <option class="select-filter-option">Date</option>
             <option class="select-filter-option">Titre</option>
@@ -47,20 +46,20 @@
         <div class="modal-container" id="modal-container-form">
           <form>
             <div>
-              <label for="prenom">Prénom</label>
+              <label tabindex="0" for="prenom">Prénom</label>
               <input type="text" name="prenom" id="prenom"/>
               <p class="error" id="error-prenom"></p>
-              <label for="nom">Nom</label>
+              <label tabindex="0" for="nom">Nom</label>
               <input type="text" name="nom" id="nom"/>
               <p class="error" id="error-nom"></p>
-              <label for="email">Email</label>
+              <label tabindex="0" for="email">Email</label>
               <input type="email" name="email" id="email"/>
               <p class="error" id="error-email"></p>
-              <label for="message">Votre message</label>
+              <label tabindex="0" for="message">Votre message</label>
               <textarea type="text" name="message" id="message"></textarea>
               <p class="error" id="error-message"></p>
             </div>
-            <button class="contact_button">Envoyer</button>
+            <button tabindex="0" class="contact_button">Envoyer</button>
           </form>
         </div>
         <div class="modal-container" id="modal-container-form-succes">

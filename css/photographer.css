@@ -35,6 +35,12 @@ article > div{
 .information-photographer-textprice{
     color: #525252;
 }
+.photograph-header > img{
+    width: 180px;
+    height: 180px;
+    border-radius: 90px;
+    margin:60px 0;
+}
 select{
     background-color: #901C1C;
     color: white;
