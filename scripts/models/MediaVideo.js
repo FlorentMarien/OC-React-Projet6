@@ -39,9 +39,9 @@ class MediaVideo {
   }
 
   setLike (ev) {
-    const focus = document.getElementById('media-' + this._id)
-    if (Number(focus.childNodes[1].childNodes[1].childNodes[0].textContent) === this._likes) {
-      focus.childNodes[1].childNodes[1].childNodes[0].textContent = this._likes + 1
+    const focus = document.getElementById('media-' + this._id + '-nbrlikes')
+    if (Number(focus.textContent) === this._likes) {
+      focus.textContent = this._likes + 1
       document.getElementById('pnbrlike').textContent = Number(document.getElementById('pnbrlike').textContent) + 1
       const target = ev.target.localName === 'svg' ? ev.target.childNodes[1] : ev.target
       target.setAttribute('class', 'animheartlike')
@@ -49,7 +49,7 @@ class MediaVideo {
         clearInterval(interval)
       }, 1000)
     } else {
-      focus.childNodes[1].childNodes[1].childNodes[0].textContent = this._likes
+      focus.textContent = this._likes
       document.getElementById('pnbrlike').textContent = Number(document.getElementById('pnbrlike').textContent) - 1
       const target = ev.target.localName === 'svg' ? ev.target.childNodes[1] : ev.target
       target.setAttribute('class', 'animheartdislike')
@@ -77,6 +77,7 @@ class MediaVideo {
     blockBottom.appendChild(title)
     const likes = document.createElement('p')
     likes.className = 'nbrlikeelement'
+    likes.id = 'media-' + this._id + '-nbrlikes'
     const logolikes = document.createElement('div')
     logolikes.innerHTML = '<svg alt="icone like" class="logoheart" width="20px" height="100%" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" alt="icone coeur"><title>heart</title><path tabindex="1" d="M0.256 12.16q0.544 2.080 2.080 3.616l13.664 14.144 13.664-14.144q1.536-1.536 2.080-3.616t0-4.128-2.080-3.584-3.584-2.080-4.16 0-3.584 2.080l-2.336 2.816-2.336-2.816q-1.536-1.536-3.584-2.080t-4.128 0-3.616 2.080-2.080 3.584 0 4.128z"></path></svg>'
     const pointer = this
