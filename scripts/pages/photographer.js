@@ -34,7 +34,6 @@ async function displayDataMedia () {
   arrayMedia.forEach((element) => {
     const objMedia = new MediaFactory(element)
     totallike += objMedia.getLikes
-    objMedia.setLike
     const block = objMedia.getMediaCard
     block.tabIndex = x
     block.childNodes[0].onclick = function (ev) { openLightboxModal(arrayMedia, objMedia.getId) }
@@ -50,24 +49,29 @@ async function displayDataMedia () {
 }
 async function displayDataInformation (totallike) {
   // Block postion absolute prix
-  const photographeInfo = await getPhotographers(id)
-  const block = document.createElement('div')
-  const blockLeft = document.createElement('div')
-  block.className += 'container_price-absolute'
-  const blockNbrlikes = document.createElement('p')
-  blockNbrlikes.textContent = totallike
-  const blockHearticone = document.createElement('img')
-  blockHearticone.className += 'container_price-absolute_logoheart'
-  blockHearticone.src = '/../assets/icons/heart-black.svg'
-  blockHearticone.alt = 'logo coeur'
-  blockLeft.appendChild(blockNbrlikes)
-  blockLeft.appendChild(blockHearticone)
-  const blockPrices = document.createElement('p')
-  blockPrices.textContent = photographeInfo.price + 'e/jour'
-  block.appendChild(blockLeft)
-  block.appendChild(blockPrices)
-  block.tabIndex = '1'
-  document.getElementById('main').appendChild(block)
+  if (document.getElementsByClassName('container_price-absolute')[0] === undefined) {
+    const photographeInfo = await getPhotographers(id)
+    const block = document.createElement('div')
+    const blockLeft = document.createElement('div')
+    block.className += 'container_price-absolute'
+    const blockNbrlikes = document.createElement('p')
+    blockNbrlikes.id = 'pnbrlike'
+    blockNbrlikes.textContent = totallike
+    const blockHearticone = document.createElement('img')
+    blockHearticone.className += 'container_price-absolute_logoheart'
+    blockHearticone.src = '/../assets/icons/heart-black.svg'
+    blockHearticone.alt = 'logo coeur'
+    blockLeft.appendChild(blockNbrlikes)
+    blockLeft.appendChild(blockHearticone)
+    const blockPrices = document.createElement('p')
+    blockPrices.textContent = photographeInfo.price + 'e / jour'
+    block.appendChild(blockLeft)
+    block.appendChild(blockPrices)
+    block.tabIndex = '1'
+    document.getElementById('main').appendChild(block)
+  } else {
+    document.getElementsByClassName('container_price-absolute')[0].childNodes[0].childNodes[0].textContent = totallike
+  }
 }
 function filterDataMedia (filter, media) {
   // Filter = Popularité / Date / Titre
@@ -217,6 +221,21 @@ function openLightboxModal (arrayMedia, id) {
             if (document.getElementsByTagName('video')[1].paused === true) document.getElementsByTagName('video')[1].play()
             else document.getElementsByTagName('video')[1].pause()
           }
+        }
+      }
+      document.getElementsByClassName('lightbox-back')[0].childNodes[0].onkeyup = function (e) {
+        if (e.keyCode === 13) {
+          back.click()
+        }
+      }
+      document.getElementsByClassName('lightbox-forward')[0].childNodes[1].onkeyup = function (e) {
+        if (e.keyCode === 13) {
+          forward.click()
+        }
+      }
+      document.getElementsByClassName('lightbox-forward')[0].childNodes[0].onkeyup = function (e) {
+        if (e.keyCode === 13) {
+          btnquit.click()
         }
       }
     }

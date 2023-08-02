@@ -41,15 +41,6 @@ function verifForm (event) {
     form.prenom.value = ''
     form.email.value = ''
     form.message.value = ''
-    const modal = document.getElementById('contact_modal')
-    /*
-    modal.focus()
-    modal.onkeyup = function (a) {
-      console.log(a.keyCode)
-      if (a.keyCode === 27) {
-        closeModal()
-      }
-    } */
     document.getElementsByClassName('modal')[0].focus()
   } else {
     if (document.getElementById('prenom').value.length < 2) {

@@ -14,7 +14,7 @@ body{
     width: 100%;
     height: 100%;
     align-items: center;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(255,255,255,0.5);
 }
 article > div{
     display: flex;
@@ -231,7 +231,7 @@ svg path{
     position: fixed;
     left: 0;
     top: 0;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(255,255,255,0.5);
 }
 .lightbox-modal{
     width: 100%;
@@ -282,6 +282,9 @@ svg path{
 #gallery > div{
     margin:20px 0;
 }
+#pnbrlike, .nbrlikeelement{
+    margin: 0 3px;
+}
 @keyframes heartlike{
     0%{fill: #901C1C;}
     100%{fill: pink;}
@@ -318,6 +321,10 @@ svg path{
     div #photographe-information,div #photographe-contact,div #photographe-pdp{
         margin: 10px 0;
         width: 100%;
+    }
+    #photographe-contact + img{
+        display: flex;
+        align-self: center;
     }
     #gallery{
         margin: 0 25px;
