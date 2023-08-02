@@ -285,6 +285,12 @@ svg path{
 #pnbrlike, .nbrlikeelement{
     margin: 0 3px;
 }
+#pnbrlike{
+    width: 35px;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 @keyframes heartlike{
     0%{fill: #901C1C;}
     100%{fill: pink;}
